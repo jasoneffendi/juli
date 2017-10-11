@@ -1,5 +1,5 @@
 <html>
-        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">        
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
         <head>
                 <script>
                     function myFunction() {
@@ -32,25 +32,34 @@
                     }
                 </style>
             </head>
-            <%- include partial/menu.ejs%>                        
+            <%- include partial/menu.ejs%>            
             <body>
-            <header class="w3-container w3-indigo">
-                <h1><%=session.user.username%></h1>          
-            </header>  
-            <input class="w3-input w3-border w3-light-grey" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items..">
             <ul id='myUL'class="w3-ul w3-card-4 w3-hoverable">
-                <%post.forEach(row => {%>
+                <%if(row.Messages.length > 0) {%>
+                <%row.Messages.forEach(data => {%>
                     <li class="w3-bar w3-hover-blue">
-                        <a class = 'invisible' href='#'><%=row.name%></a>
-                        <span  onclick="location.href = '/post/delete/<%=row.id%>'" class="w3-bar-item w3-button w3-xlarge w3-right">X</span>                    
-                        <span class="w3-bar-item w3-button w3-xlarge w3-right"><%=row.Price%></span>
-                    <img src="http://localhost:3000/images/<%=row.photo%>" class="w3-bar-item w3-circle" style="width:85px">
+                        <a class = 'invisible' href='#'><%=data.comment%></a>
+                    <!-- <span onclick= "location.href = '/user/comment/delete/<%=data.id%>/<%=row.id%>'"class="w3-bar-item w3-button w3-xlarge w3-right">x</span> -->
                         <div class="w3-bar-item">
-                            <span  onclick="location.href = '/post/edit/<%=row.id%>'" id='nama'class="w3-large"><%=row.name%></span><br>
-                            <span><%=row.createdAt%></span>
+                            <span id='nama'class="w3-large"><%=data.message%></span><br>
+                            <span><%=data.Username%> at <%=row.createdAt%></span>
                         </div>
                     </li>
-                <%})%>       
+                <%})%> 
+                <%} else {%>
+                    <li class="w3-bar w3-hover-blue">
+                        <div class="w3-bar-item">
+                            <span id='nama'class="w3-large">No Messages yet</span><br>
+                        </div>
+                    </li>
+                <%}%> 
             </ul>
+            <br>
+            <div class="w3-card-4">
+            <form class ="w3-container" action='/user/messages/<%=row.id%>/send/<%=position%>' method='post'>
+                <input class="w3-input w3-animate-input"  style="width:80%" type='text' name='message' value='' placeholder='Type'>
+            </div>
+                <button class="w3-button w3-block w3-indigo" style="width:100%" type='submit'>Enter</button>
+            </form>
         </body>
     </html>

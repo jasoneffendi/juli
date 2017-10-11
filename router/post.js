@@ -87,21 +87,44 @@ router.get('/edit/:id', (req,res) => {
 })
 
 router.post('/edit/:id', upload.single('userFile'), (req,res) => {
-    console.log(req.file)
-    models.Post.update({
-        name: `${req.body.name}`,
-        description: `${req.body.description}`,
-        photo: `${req.file.filename}`,
-        UserId: `${req.session.user.id}`,
-        Price: `${req.body.price}`,
-        createdAt: new Date(),
-        updatedAt: new Date()
-    }, {
-        where: {id: `${req.params.id}`}
+    models.Post.findOne({
+        where: {
+            id: `${req.params.id}`
+        }
     })
-    .then(() => {
-        res.redirect('/user')
+    .then(post => {
+        var oldFile = post.photo
+        var oldName = post.name
+        var oldDescription = post.description
+        var oldPrice = post.Price
+        if(req.file !== undefined) {
+            oldFile = `${req.file.filename}`
+        }
+        if(req.body.name.length > 1) {
+            oldName = `${req.body.name}`
+        }
+        if(req.body.description.length > 1) {
+            oldDescription = `${req.body.description}`
+        }
+        if(req.body.price.length > 1) {
+            oldPrice = `${req.body.price}`
+        }
+        models.Post.update({
+            name: oldName,
+            description: oldDescription,
+            photo: oldFile,
+            UserId: `${req.session.user.id}`,
+            Price: oldPrice,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        }, {
+            where: {id: `${req.params.id}`}
+        })
+        .then(() => {
+            res.redirect('/user')
+        })
     })
+   
 })
 
 router.get('/delete/:id', (req,res) => {

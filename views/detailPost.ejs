@@ -83,10 +83,11 @@
                 <%}%> 
             </ul>
             <br>
+            <div class="w3-card-4">
             <form class ='' action='/post/comment/<%=row.id%>' method='post'>
-                <input class="w3-input" style="width:25%"  type='text' name='comment' value='' placeholder='<%=row.username%>'>
-                <input class="w3-input" style="width:25%"  type='submit' value='Post Comment'>
-            </form>
+                <input class="w3-input w3-animate-input" style="width:75%"  type='text' name='comment' value='' placeholder='Write comment'>
+            </div>
+            <button class="w3-button w3-block w3-indigo" style="width:100%" type='submit'>Post Comment</button>            </form>
             <a href='/'>Home</a>
         </body>
     </html>
