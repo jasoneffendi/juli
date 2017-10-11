@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang ='en'>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <body align='center'>
+            <h1>REGISTER</h1>
+            <%if(err) {%>  
+                <div class="w3-container w3-red">
+                    <td>Please fill in Username and Password</td>
+                </div>
+            <%}%>
+        <p>
+            <div align='center'>
+                <form class ='' action='/registeruser' method='post'>
+                    <input class="w3-input" style="width:25%"  type='text' name='register_username' value='' placeholder='Username'>
+                    <input class="w3-input" style="width:25%"  type='password' name='register_password' value='' placeholder='Password'>
+                    <input class="w3-input" style="width:25%"  type='email' name='register_email' value='' placeholder='Email'>                    
+                    <input class="w3-input" style="width:25%"  type='submit' value='Register'>
+                </form>
+            </div>
+        </p>
+    </body>
+</html>

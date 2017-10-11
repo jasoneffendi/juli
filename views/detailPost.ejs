@@ -1,0 +1,92 @@
+<html>
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <head>
+                <script>
+                    function myFunction() {
+                    // Declare variables
+                    var input, filter, ul, li, a, i;
+                    input = document.getElementById('myInput');
+                    filter = input.value.toUpperCase();
+                    ul = document.getElementById("myUL");
+                    li = ul.getElementsByTagName('li');
+        
+                    // Loop through all list items, and hide those who don't match the search query
+                    for (i = 0; i < li.length; i++) {
+                        a = li[i].getElementsByTagName("a")[0];
+                        if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            li[i].style.display = "";
+                        } else {
+                            li[i].style.display = "none";
+                        }
+                    }
+                }
+                </script>
+                <style>
+                    a.invisible
+                    {
+                    display:none;
+                    }
+        
+                    body {
+                        background-color: white
+                    }
+                </style>
+            </head>
+            <%- include partial/menu.ejs%>            
+            <body>
+            <div class="w3-card-4">
+                    <header class="w3-container w3-indigo">
+                      <h1><%=row.name%></h1>
+                    </header>
+                    <div class="w3-container w3-center">
+                            
+                    <img src="http://localhost:3000/images/<%=row.photo%>"style="max-width: 20%">
+                    </div>
+                    <div class="w3-container">
+                        <p>
+                          <%=row.description%>
+                        </p>
+                        <h2>price : <%=row.Price%></h2>
+                    </div>
+                    
+                    <button class="w3-button w3-block w3-orange" onclick= "location.href = '/post/buy/<%=row.id%>'"><h3>BUY</h3></button>
+                    <footer class="w3-container w3-indigo">
+                      <h5>Owner: <%=owner.username%> | Posted On : <%=row.createdAt%></h5>
+                    </footer>
+
+                    </div>
+                    <%if(errDel) {%>
+                    <div class="w3-container w3-red">
+                        <p>You cannot delete this comment</p>
+                    </div>
+                    <%}%>
+                    <br>
+
+            <ul id='myUL'class="w3-ul w3-card-4 w3-hoverable">
+                <%if(row.commentPosts.length > 0) {%>
+                <%row.commentPosts.forEach(data => {%>
+                    <li class="w3-bar w3-hover-blue">
+                        <a class = 'invisible' href='#'><%=data.comment%></a>
+                    <span onclick= "location.href = '/post/comment/delete/<%=data.id%>/<%=row.id%>'"class="w3-bar-item w3-button w3-xlarge w3-right">x</span>
+                        <div class="w3-bar-item">
+                            <span id='nama'class="w3-large"><%=data.comment%></span><br>
+                            <span><%=data.Username%></span>
+                        </div>
+                    </li>
+                <%})%> 
+                <%} else {%>
+                    <li class="w3-bar w3-hover-blue">
+                        <div class="w3-bar-item">
+                            <span id='nama'class="w3-large">No comments yet</span><br>
+                        </div>
+                    </li>
+                <%}%> 
+            </ul>
+            <br>
+            <form class ='' action='/post/comment/<%=row.id%>' method='post'>
+                <input class="w3-input" style="width:25%"  type='text' name='comment' value='' placeholder='<%=row.username%>'>
+                <input class="w3-input" style="width:25%"  type='submit' value='Post Comment'>
+            </form>
+            <a href='/'>Home</a>
+        </body>
+    </html>

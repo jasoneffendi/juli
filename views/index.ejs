@@ -1,0 +1,55 @@
+<html>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <head>
+        <script>
+            function myFunction() {
+            // Declare variables
+            var input, filter, ul, li, a, i;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                    li[i].style.display = "";
+                } else {
+                    li[i].style.display = "none";
+                }
+            }
+        }
+        </script>
+        <style>
+            a.invisible
+            {
+            display:none;
+            }
+
+            body {
+                background-color: white
+            }
+        </style>
+    </head>
+    <body>
+        <%- include partial/menu.ejs%>
+        <header class="w3-container w3-indigo">
+            <h1>Index</h1>          
+        </header>  
+        <input class="w3-input w3-border w3-light-grey" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items..">
+        <ul id='myUL'class="w3-ul w3-card-4 w3-hoverable">
+            <%data.forEach(row => {%>
+                <li onclick="location.href = '/post/details/<%=row.id%>'" class="w3-bar w3-hover-blue">
+                    <a class = 'invisible' href='#'><%=row.name%></a>
+                <span class="w3-bar-item w3-button w3-xlarge w3-right"><%=row.Price%></span>
+                <img src="http://localhost:3000/images/<%=row.photo%>" class="w3-bar-item w3-circle" style="width:85px">
+                    <div class="w3-bar-item">
+                        <span id='nama'class="w3-large"><%=row.name%></span><br>
+                        <span><%=row.createdAt%></span>
+                    </div>
+                </li>
+            <%})%>       
+        </ul>
+    </body>
+</html>
