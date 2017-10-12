@@ -53,7 +53,7 @@ router.post('/login', (req, res)=>{
         })
         .catch(err => {
           console.log(err);
-          redirect('/login')
+          res.redirect('/login')
         })
     } else {
         req.session.err = true
@@ -79,8 +79,8 @@ router.post('/registeruser', (req, res)=>{
             updatedAt: new Date()
           })
           .then(student => {
-            res.send('register success')
-            // res.render('registerSuccess')
+            // res.send('register success')
+            res.render('registerSuccess')
           })
           .catch(err => {
             console.log(err);

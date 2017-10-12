@@ -20,6 +20,20 @@
                         }
                     }
                 }
+                function formatuang (number){
+                        reverse = number.toString().split('').reverse();
+                        arr= [];
+                        for(var i = 0; i<reverse.length;i++){
+                            if((i+1) % 3 === 0 && (i+1) !== reverse.length){
+                            arr.push(reverse[i]);
+                            arr.push('.');
+                            }else{
+                            arr.push(reverse[i]);
+                            }
+                        }
+                        document.write('Rp. '+arr.reverse().join(''))
+                        // return 'Rp. '+arr.reverse().join('');
+                        }
                 </script>
                 <style>
                     a.invisible
@@ -46,10 +60,10 @@
                         <p>
                           <%=row.description%>
                         </p>
-                        <h2>price : <%=row.Price%></h2>
+                        <h2><script>formatuang(`<%=row.Price%>`)</script></h2>
                     </div>
                     
-                    <button class="w3-button w3-block w3-orange" onclick= "location.href = '/post/buy/<%=row.id%>'"><h3>BUY</h3></button>
+                    <button class="w3-button w3-block w3-orange" onclick= "location.href = '/post/buy/<%=row.id%>'"><h3>Contact Seller</h3></button>
                     <footer class="w3-container w3-indigo">
                       <h5>Owner: <%=owner.username%> | Posted On : <%=row.createdAt%></h5>
                     </footer>

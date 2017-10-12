@@ -20,6 +20,20 @@
                         }
                     }
                 }
+                function formatuang (number){
+                        reverse = number.toString().split('').reverse();
+                        arr= [];
+                        for(var i = 0; i<reverse.length;i++){
+                            if((i+1) % 3 === 0 && (i+1) !== reverse.length){
+                            arr.push(reverse[i]);
+                            arr.push('.');
+                            }else{
+                            arr.push(reverse[i]);
+                            }
+                        }
+                        document.write('Rp. '+arr.reverse().join(''))
+                        // return 'Rp. '+arr.reverse().join('');
+                        }
                 </script>
                 <style>
                     a.invisible
@@ -35,22 +49,37 @@
             <%- include partial/menu.ejs%>                        
             <body>
             <header class="w3-container w3-indigo">
-                <h1><%=session.user.username%></h1>          
+                <h1><%=profile.username%></h1>          
             </header>  
             <input class="w3-input w3-border w3-light-grey" type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for items..">
             <ul id='myUL'class="w3-ul w3-card-4 w3-hoverable">
                 <%post.forEach(row => {%>
                     <li class="w3-bar w3-hover-blue">
                         <a class = 'invisible' href='#'><%=row.name%></a>
-                        <span  onclick="location.href = '/post/delete/<%=row.id%>'" class="w3-bar-item w3-button w3-xlarge w3-right">X</span>                    
-                        <span class="w3-bar-item w3-button w3-xlarge w3-right"><%=row.Price%></span>
+                        <%if(owner) {%>
+                            <span  onclick="location.href = '/post/delete/<%=row.id%>'" class="w3-bar-item w3-button w3-xlarge w3-right">X</span>                                                
+                        <%}%>
+                        <span class="w3-bar-item w3-xlarge w3-right"><script>formatuang(`<%=row.Price%>`)</script></span>
                     <img src="http://localhost:3000/images/<%=row.photo%>" class="w3-bar-item w3-circle" style="width:85px">
                         <div class="w3-bar-item">
-                            <span  onclick="location.href = '/post/edit/<%=row.id%>'" id='nama'class="w3-large"><%=row.name%></span><br>
+                            <%if(owner) {%>
+                                <span  onclick="location.href = '/post/edit/<%=row.id%>'" id='nama'class="w3-large"><%=row.name%></span><br>                                
+                            <%} else {%>
+                                <span  onclick="location.href = '/post/details/<%=row.id%>'" id='nama'class="w3-large"><%=row.name%></span><br>                            
+                            <%}%>
                             <span><%=row.createdAt%></span>
                         </div>
                     </li>
                 <%})%>       
             </ul>
+            <br>
+            <!-- <div align='center'>
+                    <form class ='' action='/user' method='post'>
+                        <input class="w3-input" style="width:25%"  type='text' name='update_username' value='' placeholder='<%=session.user.username%>'>
+                        <input class="w3-input" style="width:25%"  type='password' name='update_password' value='' placeholder='Password'>
+                        <input class="w3-input" style="width:25%"  type='email' name='update_email' value='' placeholder='<%=session.user.email%>'>                    
+                        <input class="w3-input" style="width:25%"  type='submit' value='Update'>
+                    </form>
+                </div> -->
         </body>
     </html>

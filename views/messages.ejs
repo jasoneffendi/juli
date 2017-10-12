@@ -61,10 +61,10 @@
             <ul id='myUL'class="w3-ul w3-card-4 w3-hoverable">
                 <%inbox.forEach(row => {%>
                     <li onclick="location.href = '/user/messages/<%=row.id%>/inbox'" class="w3-bar w3-hover-blue">
-                        <a class = 'invisible' href='#'><%=row.ReceiveName%></a>
+                        <a class = 'invisible' href='#'><%=row.User.username%></a>
                     <img src="http://localhost:3000/images/<%=row.photo%>" class="w3-bar-item w3-circle" style="width:85px">
                         <div class="w3-bar-item">
-                            <span id='nama'class="w3-large"><%=row.ReceiveName%></span><br>
+                            <span id='nama'class="w3-large"><%=row.User.username%></span><br>
                             <span><%=row.createdAt%></span>
                         </div>
                     </li>

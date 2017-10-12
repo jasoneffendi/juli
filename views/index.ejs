@@ -20,6 +20,20 @@
                 }
             }
         }
+        function formatuang (number){
+                        reverse = number.toString().split('').reverse();
+                        arr= [];
+                        for(var i = 0; i<reverse.length;i++){
+                            if((i+1) % 3 === 0 && (i+1) !== reverse.length){
+                            arr.push(reverse[i]);
+                            arr.push('.');
+                            }else{
+                            arr.push(reverse[i]);
+                            }
+                        }
+                        document.write('Rp. '+arr.reverse().join(''))
+                        // return 'Rp. '+arr.reverse().join('');
+                        }
         </script>
         <style>
             a.invisible
@@ -42,11 +56,11 @@
             <%data.forEach(row => {%>
                 <li onclick="location.href = '/post/details/<%=row.id%>'" class="w3-bar w3-hover-blue">
                     <a class = 'invisible' href='#'><%=row.name%></a>
-                <span class="w3-bar-item w3-button w3-xlarge w3-right"><%=row.Price%></span>
+                <span class="w3-bar-item w3-button w3-xlarge w3-right"><script>formatuang(`<%=row.Price%>`)</script></span>
                 <img src="http://localhost:3000/images/<%=row.photo%>" class="w3-bar-item w3-circle" style="width:85px">
                     <div class="w3-bar-item">
                         <span id='nama'class="w3-large"><%=row.name%></span><br>
-                        <span><%=row.createdAt%></span>
+                        <span>created by <%=row.User.username%> at <%=row.createdAt%></span>
                     </div>
                 </li>
             <%})%>       
