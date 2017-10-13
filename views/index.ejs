@@ -57,7 +57,7 @@
                 <li onclick="location.href = '/post/details/<%=row.id%>'" class="w3-bar w3-hover-blue">
                     <a class = 'invisible' href='#'><%=row.name%></a>
                 <span class="w3-bar-item w3-button w3-xlarge w3-right"><script>formatuang(`<%=row.Price%>`)</script></span>
-                <img src="http://localhost:3000/images/<%=row.photo%>" class="w3-bar-item w3-circle" style="width:85px">
+                <img src="/images/<%=row.photo%>" class="w3-bar-item w3-circle" style="width:85px">
                     <div class="w3-bar-item">
                         <span id='nama'class="w3-large"><%=row.name%></span><br>
                         <span>created by <%=row.User.username%> at <%=row.createdAt%></span>

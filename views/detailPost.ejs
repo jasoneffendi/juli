@@ -54,7 +54,7 @@
                     </header>
                     <div class="w3-container w3-center">
                             
-                    <img src="http://localhost:3000/images/<%=row.photo%>"style="max-width: 20%">
+                    <img src="/images/<%=row.photo%>"style="max-width: 20%">
                     </div>
                     <div class="w3-container">
                         <p>
@@ -64,7 +64,7 @@
                     </div>
                     
                     <button class="w3-button w3-block w3-orange" onclick= "location.href = '/post/buy/<%=row.id%>'"><h3>Contact Seller</h3></button>
-                    <footer class="w3-container w3-indigo">
+                    <footer onclick= "location.href = '/user/<%=owner.id%>'" class="w3-container w3-indigo">
                       <h5>Owner: <%=owner.username%> | Posted On : <%=row.createdAt%></h5>
                     </footer>
 

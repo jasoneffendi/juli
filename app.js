@@ -11,7 +11,7 @@ app.use(session({
   secret: 'lively-2017',
   cookie: {}
 }))
-app.use( express.static( "public" ) );
+app.use( express.static(__dirname + '/public') );
 // app.use(express.static('public'))
 let index = require('./router/index.js')
 let user = require('./router/user.js')
